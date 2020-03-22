@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<getCourseDetailsRequest xmlns="http://cassionunes.com.com.br">
+<getCourseDetailsResponse xmlns="http://cassionunes.com.br">
+    <courseDetails>
 <id>Course1</id>
-</getCourseDetailsRequest>
+<name>Spring Soap</name>
+        <description> Learning basic spring webservice SOAP </description>
+    </courseDetails>
+</getCourseDetailsResponse>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<getCourseDetailsRequest xmlns="http://cassionunes.com.com.br">
+<getCourseDetailsRequest xmlns="http://cassionunes.com.br" xsi:schemaLocation="http://cassionunes.com.br soap-details.xsd"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema">
 <id>Course1</id>
 </getCourseDetailsRequest>
