@@ -8,6 +8,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.server.EndpointInterceptor;
+import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
+import org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
@@ -50,4 +52,27 @@ public class WebServiceConfig extends WsConfigurerAdapter{
         return new SimpleXsdSchema(new ClassPathResource("soap-details.xsd"));
     }
 
+    //XwsSecurityInterceptor
+    @Bean
+    public XwsSecurityInterceptor securityInterceptor(){
+        XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
+        //Callback Handler -> SimplePasswordValidationCallbackHandler
+        securityInterceptor.setCallbackHandler(callbackHandler());
+        //Security Policy -> securityPolicy.xml
+        securityInterceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
+        return securityInterceptor;
+    }
+
+    @Bean
+    public SimplePasswordValidationCallbackHandler callbackHandler() {
+        SimplePasswordValidationCallbackHandler handler = new SimplePasswordValidationCallbackHandler();
+        handler.setUsersMap(Collections.singletonMap("admin", "admin"));
+        return handler;
+    }
+
+    //Interceptors.add -> XwsSecurityInterceptor
+    @Override
+    public void addInterceptors(List<EndpointInterceptor> interceptors) {
+        interceptors.add(securityInterceptor());
+    }
 }
